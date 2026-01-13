@@ -148,7 +148,7 @@ GitHub Actions workflow runs on every push:
 
 
 ## Author
-Pushker Sahai
+**Pushker Sahai**
 LinkedIn: www.linkedin.com/in/pushkersahai
 
 ## License
