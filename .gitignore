@@ -1,0 +1,12 @@
+venv/
+__pycache__/
+*.pyc
+.env
+.DS_Store
+*.pkl
+*.joblib
+mlruns/
+.databricks/
+*.log
+acr_name.txt
+.kube/
