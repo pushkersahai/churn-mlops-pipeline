@@ -13,16 +13,25 @@ feature_columns = None
 async def load_model():
     global model, feature_columns
     
-    # Try both paths (for testing and production)
-    model_paths = ["churn_model.pkl", "api/churn_model.pkl"]
-    model_path = None
+    # Try multiple paths for different environments
+    model_paths = [
+        "churn_model.pkl",           # Docker container
+        "api/churn_model.pkl",        # Local development and CI
+        "/app/churn_model.pkl"        # Alternative Docker path
+    ]
     
+    model_path = None
     for path in model_paths:
         if os.path.exists(path):
             model_path = path
             break
     
     if model_path is None:
+        # List current directory for debugging
+        print(f"Current directory: {os.getcwd()}")
+        print(f"Files in current directory: {os.listdir('.')}")
+        if os.path.exists('api'):
+            print(f"Files in api/: {os.listdir('api')}")
         raise FileNotFoundError("Model file not found in any expected location")
     
     model = joblib.load(model_path)
@@ -64,7 +73,7 @@ def predict(data: CustomerData):
     if model is None:
         raise HTTPException(status_code=503, detail="Model not loaded")
     
-    input_dict = data.dict()
+    input_dict = data.model_dump()
     
     categorical_cols = ['MultipleLines', 'InternetService', 'OnlineSecurity', 'OnlineBackup', 
                        'DeviceProtection', 'TechSupport', 'StreamingTV', 'StreamingMovies', 
