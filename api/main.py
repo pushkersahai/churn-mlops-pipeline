@@ -12,9 +12,19 @@ feature_columns = None
 @app.on_event("startup")
 async def load_model():
     global model, feature_columns
-    model_path = "churn_model.pkl"
-    if not os.path.exists(model_path):
-        raise FileNotFoundError(f"Model file not found: {model_path}")
+    
+    # Try both paths (for testing and production)
+    model_paths = ["churn_model.pkl", "api/churn_model.pkl"]
+    model_path = None
+    
+    for path in model_paths:
+        if os.path.exists(path):
+            model_path = path
+            break
+    
+    if model_path is None:
+        raise FileNotFoundError("Model file not found in any expected location")
+    
     model = joblib.load(model_path)
     feature_columns = model.feature_names_in_
     print(f"Model loaded from {model_path}")
