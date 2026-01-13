@@ -24,6 +24,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
+    - name: Train model for testing
+      run: |
+        python train_local.py
+        echo "Files after training:"
+        ls -la
+        ls -la api/
+    
     - name: Run tests
       run: |
         pytest test_api.py -v
