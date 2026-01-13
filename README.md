@@ -1,4 +1,3 @@
-cat > README.md << 'EOF'
 # Customer Churn Prediction - Production MLOps Pipeline
 
 ## Overview
