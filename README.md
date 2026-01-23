@@ -1,7 +1,7 @@
 # Customer Churn Prediction - Production MLOps Pipeline
 
 ## Overview
-End-to-end MLOps pipeline demonstrating production-grade ML deployment on Azure with automated testing, containerization, and Kubernetes orchestration.
+Production MLOps pipeline for churn: MLflow + Docker + AKS + CI/CD.
 
 ## Business Problem
 Predicts customer churn risk in real-time, enabling proactive retention campaigns. Model achieves 78% accuracy with ROC-AUC of 0.83.
